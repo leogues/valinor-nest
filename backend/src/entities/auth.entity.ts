@@ -1,6 +1,7 @@
 import {
   Column,
   Entity,
+  Index,
   JoinColumn,
   OneToOne,
   PrimaryGeneratedColumn,
@@ -8,6 +9,7 @@ import {
 import { User } from './user.entity';
 
 @Entity()
+@Index(['source', 'sourceId'], { unique: true })
 export class Auth {
   @PrimaryGeneratedColumn()
   id: number;
