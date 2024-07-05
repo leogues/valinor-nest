@@ -14,16 +14,16 @@ export class Auth {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column('text')
   source: string;
 
-  @Column()
+  @Column('text')
   sourceId: string;
 
-  @Column()
+  @Column('text')
   accessToken: string;
 
-  @Column({ nullable: true })
+  @Column({ type: 'text', nullable: true })
   refreshToken: string | null;
 
   @Column()

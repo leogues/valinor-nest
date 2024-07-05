@@ -12,13 +12,13 @@ export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column('text')
   firstName: string;
 
-  @Column()
+  @Column('text')
   lastName: string;
 
-  @Column({ unique: true })
+  @Column({ type: 'text', unique: true })
   email: string;
 
   @CreateDateColumn()
