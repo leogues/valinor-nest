@@ -1,4 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import { Inject, Injectable } from '@nestjs/common';
+import { Cache } from 'cache-manager';
 import { AuthService } from 'src/auth/auth.service';
 import { UsersService } from 'src/users/users.service';
 import { OAuthDTO } from './dto/auth.dto';
@@ -9,6 +11,7 @@ export class AuthenticationService {
   constructor(
     private authService: AuthService,
     private userService: UsersService,
+    @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
   async validateOAuthUser(authDTO: OAuthDTO, userDTO: OAuthUserDTO) {
     let auth = await this.authService.findOne(authDTO.source, authDTO.sourceId);

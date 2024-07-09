@@ -17,6 +17,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { User } from '../decorator/user.decorator';
 import { frontendUrl } from './constants';
 import { CaptureRedirectGuard } from './guard/capture-redirect.guard';
+import { CsrfStateGenerateGuard } from './guard/csrf-state-generate.guard';
+import { CsrfStateGuard } from './guard/csrf-state.guard';
 import { GoogleAuthGuard } from './guard/google.auth.guard';
 
 @Controller('auth')
@@ -34,15 +36,17 @@ export class AuthenticationController {
       throw new NotFoundException('Invalid code');
     }
 
+    this.cacheManager.del(code);
+
     return { accessToken: token };
   }
 
   @Get('google')
-  @UseGuards(CaptureRedirectGuard, GoogleAuthGuard)
+  @UseGuards(CaptureRedirectGuard, CsrfStateGenerateGuard, GoogleAuthGuard)
   signInWithGoogle() {}
 
   @Get('google/callback')
-  @UseGuards(GoogleAuthGuard)
+  @UseGuards(GoogleAuthGuard, CsrfStateGuard)
   @Redirect()
   async githubAuthCallback(
     @Session() session: { redirectUrl?: string },
