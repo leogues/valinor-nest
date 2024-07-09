@@ -21,6 +21,9 @@ export class User {
   @Column({ type: 'text', unique: true })
   email: string;
 
+  @Column('text')
+  picture: string;
+
   @CreateDateColumn()
   createdAt: Date;
 

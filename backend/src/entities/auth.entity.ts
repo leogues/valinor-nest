@@ -1,5 +1,6 @@
 import {
   Column,
+  CreateDateColumn,
   Entity,
   Index,
   JoinColumn,
@@ -26,10 +27,19 @@ export class Auth {
   @Column({ type: 'text', nullable: true })
   refreshToken: string | null;
 
-  @Column()
-  expires: Date;
+  @Column({ nullable: true, type: 'timestamp' })
+  expires: Date | null;
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @CreateDateColumn()
+  updatedAt: Date;
 
   @OneToOne(() => User, (user) => user.auth, { onDelete: 'CASCADE' })
-  @JoinColumn()
+  @JoinColumn({ name: 'userId' })
   user: User;
+
+  @Column()
+  userId: number;
 }
