@@ -4,6 +4,7 @@ import {
   Entity,
   OneToOne,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { Auth } from './auth.entity';
 
@@ -27,7 +28,7 @@ export class User {
   @CreateDateColumn()
   createdAt: Date;
 
-  @CreateDateColumn()
+  @UpdateDateColumn()
   updatedAt: Date;
 
   @OneToOne(() => Auth, (auth) => auth.user, { cascade: true })
